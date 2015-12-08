@@ -5,26 +5,8 @@ import tweepy
 import ConfigParser
 import os
 
-twitter = api.getApi()
 
-config = ConfigParser.ConfigParser()
-config.reader("frasesbot.conf")
 
-tweetPeriodico("moonage", config.get("moonage","periodo"), config.get("moonage","frases"))
-
-exit 0
-
-for user in config.sections():
-	print (user)
-	newpid = os.fork()
-	
-	if newpid == 0:
-		if config.get(user,"periodo") == None:
-			tweetPeriodico(user, config.get(user,"periodo"), config.get(user,"frases"))
-		else:
-			print("TODO")
-	else:
-		continue
 
 
 #Twittea uno de los mensajes cada periodo segundos
@@ -45,3 +27,30 @@ def twittear(mensaje):
 		#api.update_status(status=mensaje)
 	except:
 		print(":C")
+
+
+
+		
+
+
+twitter = api.getApi()
+
+config = ConfigParser.ConfigParser()
+config.read("frasesbot.conf")
+
+tweetPeriodico("moonage", config.get("moonage","periodo"), config.get("moonage","frases"))
+
+exit (0)
+
+for user in config.sections():
+	print (user)
+	newpid = os.fork()
+	
+	if newpid == 0:
+		if config.get(user,"periodo") == None:
+			tweetPeriodico(user, config.get(user,"periodo"), config.get(user,"frases"))
+		else:
+			print("TODO")
+	else:
+		continue
+
