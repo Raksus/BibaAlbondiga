@@ -19,7 +19,7 @@ for user in config.sections():
 	newpid = os.fork()
 	
 	if newpid == 0:
-		if config.get(user,"periodo")) == None:
+		if config.get(user,"periodo") == None:
 			tweetPeriodico(user, config.get(user,"periodo"), config.get(user,"frases"))
 		else:
 			print("TODO")
