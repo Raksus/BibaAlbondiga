@@ -30,7 +30,7 @@ def twittear(mensaje):
 
 
 
-		
+
 
 
 twitter = api.getApi()
@@ -38,7 +38,7 @@ twitter = api.getApi()
 config = ConfigParser.ConfigParser()
 config.read("frasesbot.conf")
 
-tweetPeriodico("moonage", config.get("moonage","periodo"), config.get("moonage","frases"))
+tweetPeriodico("moonage180", config.get("moonage180","periodo"), config.get("moonage180","frases"))
 
 exit (0)
 
