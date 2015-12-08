@@ -4,18 +4,14 @@ import api
 import tweepy
 import ConfigParser
 import os
-
-
-
-
+import time
 
 #Twittea uno de los mensajes cada periodo segundos
-def tweetPeriodico(user, perido, frases):
-	print (frases)
-	print ("--------")
-	frases = frases.split('\n')
+def tweetPeriodico(user, periodo, frases):
+	frases = ''.join(ch for ch in frases if ch != '\n')
+	frases = frases.split(',')
 	for frase in frases:
-		twittear("@" + user + " " + line)
+		twittear("@" + user + " " + frase)
 		time.sleep(periodo)
 			
 
@@ -38,7 +34,7 @@ twitter = api.getApi()
 config = ConfigParser.ConfigParser()
 config.read("frasesbot.conf")
 
-tweetPeriodico("moonage180", config.get("moonage180","periodo"), config.get("moonage180","frases"))
+tweetPeriodico("moonage180", float(config.get("moonage180","periodo")), config.get("moonage180","frases"))
 
 exit (0)
 
@@ -48,7 +44,7 @@ for user in config.sections():
 	
 	if newpid == 0:
 		if config.get(user,"periodo") == None:
-			tweetPeriodico(user, config.get(user,"periodo"), config.get(user,"frases"))
+			tweetPeriodico(user, float(config.get(user,"periodo")), config.get(user,"frases"))
 		else:
 			print("TODO")
 	else:
