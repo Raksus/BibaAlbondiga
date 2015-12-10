@@ -16,10 +16,11 @@ def convertir(texto):
 	texto = "".join("i" if char.lower() in vocales else char for char in texto)
 	
 	#Elimina las menciones si hay
-	texto="".join(word.capitalize() if word.find("@")==-1 else "" for word in texto.split()) 
+
+	texto="".join(word.capitalize()+" " if word.find("@")==-1 else "" for word in texto.split()) 
 		
 	#Anade el #
-	result= "@moonage180 #" + texto
+	result= "@moonage180 " + texto
 	return result
 
 
