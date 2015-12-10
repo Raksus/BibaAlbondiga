@@ -4,8 +4,8 @@ import api
 import tweepy
 import ConfigParser
 import os
-import time
-
+from time import sleep
+from datetime import datetime, time
 
  #Intenta twitear un mensaje
 def twittear(mensaje):
@@ -25,7 +25,7 @@ def tweetPeriodico(user, periodo, frases):
 	while (True):
 		for frase in frases:
 			twittear("@" + user + " " + frase)
-			time.sleep(periodo)
+			sleep(periodo)
 
 def wait_start(runTime):
 	startTime = time(*(map(int, runTime.split(':'))))
@@ -36,12 +36,12 @@ def wait_start(runTime):
 def tweetHora(user, hora, frases):
 	frases = ''.join(ch for ch in frases if ch != '\n')
  	frases = frases.split(',')
-
+	print("esperando...")
 	while (True):
 		for frase in frases:
 			wait_start(hora)
 			twittear("@" + user + " " + frase)
-			time.sleep(82800)
+			sleep(82800)
 
 #------------------------------------------
 
@@ -61,7 +61,7 @@ for user in config.sections():
 			tweetPeriodico(user, float(config.get(user,"periodo")), config.get(user,"frases"))
 			break
 		else:
-			print("TODO")
+			tweetHora(user, config.get(user,"hora"), config.get(user,"frases"))
 			break
 	else:
 		continue
