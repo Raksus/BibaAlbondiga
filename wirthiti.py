@@ -25,7 +25,7 @@ def convertir(texto):
 
 
 twitter = api.getApi()
-img = os.path.abspath('/home/raksus/BibaAlbondiga/litmi.png')
+img = os.path.abspath('/home/BibaAlbondiga/litmi.png')
 
 config = ConfigParser.ConfigParser()
 config.read("wirthiti.conf")
