@@ -6,6 +6,7 @@ import ConfigParser
 import time
 import unicodedata
 import os
+import random
 
 def convertir(texto):
 	#Magia satanica anti-acentos
@@ -13,18 +14,39 @@ def convertir(texto):
 	#magia satanica mejorada
 	texto = unicodedata.normalize('NFKD', texto).encode('ASCII', 'ignore')
 	
-	
 	#Convierte el texto
 	vocales=["a","e","i","o","u"]
-	texto = "".join("i" if char.lower() in vocales else char for char in texto)
 	
-	#Elimina las menciones si hay
-
-	texto="".join(word.capitalize()+" " if word.find("@")==-1 else "" for word in texto.split()) 
+	#Version inicial: Convierte todas
+	texto0 = "".join("i" if char.lower() in vocales else char for char in texto)
+	
+	#Primera version: ignora vocales de forma uniforme
+	texto1 = "".join("i" if char.lower() in vocales and random.randrange(5)!=0 else char for char in texto)
+	print("a= " + texto1)
+	
+	#Segunda version: prioridad a las primeras ya que solo hay una ignorada por palabra
+	texto2=""
+	for word in texto.split():
+		flag = False
+		for c in word:
+			if c.lower() in vocales:
+				if not (not flag and random.randrange(2) ==0):
+					c="i"
+				else:
+					flag = True
+			texto2+=c
+		#Las palabras en mi idioma se separan con espasios
+		texto2+=" "
+	print ("b= " + texto2)
+	
+		#Elimina las menciones si hay
+	resultado = texto1
+	resultado ="".join(word.capitalize()+" " if word.find("@")==-1 else "" for word in resultado.split()) 
 		
 	#Anade el #
-	result= "@moonage180 " + texto
-	return result
+	resultado= "@moonage180 " + resultado
+
+	return resultado
 
 
 twitter = api.getApi()
