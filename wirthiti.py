@@ -9,7 +9,10 @@ import os
 
 def convertir(texto):
 	#Magia satanica anti-acentos
-	texto = ''.join((c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn'))
+	#texto = ''.join((c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn'))
+	#magia satanica mejorada
+	texto = unicodedata.normalize('NFKD', texto).encode('ASCII', 'ignore')
+	
 	
 	#Convierte el texto
 	vocales=["a","e","i","o","u"]
