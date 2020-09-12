@@ -40,24 +40,24 @@ config.read("wirthiti.conf")
 lastId = int(config.get("tweetId", "lastId"))
 user = config.get("user", "user")
 
-try:
-	tweets = twitter.user_timeline(user)
-	for tweet in reversed(tweets):
-		if(int(tweet.id_str) > lastId):
-			if tweet.text[:3] != "RT ":
-				print(tweet.text)
-				print(convertir(tweet.text))
-				print(img)
-				# twitter.update_with_media(img, status=convertir(tweet.text), in_reply_to_status_id=tweet.id)
-	
-	lastId = tweets[0].id_str
-	# lastId = str(1303738631920717824)
-	print(lastId)
-	config.set('tweetId', 'lastId', lastId)
-	print(config)
-	with open("wirthiti.conf", 'w') as cfg:
-		config.write(cfg)
-except tweepy.TweepError as e:
-	print(e)
-# time.sleep(30)
+while True:
+	try:
+		tweets = twitter.user_timeline(user)
+		for tweet in reversed(tweets):
+			if(int(tweet.id_str) > lastId):
+				if tweet.text[:3] != "RT ":
+					print(tweet.text)
+					print(convertir(tweet.text))
+					print(img)
+					twitter.update_with_media(img, status=convertir(tweet.text), in_reply_to_status_id=tweet.id)
+		
+		lastId = tweets[0].id_str
+		print(lastId)
+		config.set('tweetId', 'lastId', lastId)
+		print(config)
+		with open("wirthiti.conf", 'w') as cfg:
+			config.write(cfg)
+	except tweepy.TweepError as e:
+		print(e)
+	time.sleep(30)
 
