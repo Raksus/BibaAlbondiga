@@ -1,1 +1,3 @@
 *.png
+keys.conf
+__pycache__/*

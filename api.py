@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import tweepy, time, sys, ConfigParser
+import tweepy, time, sys
+import configparser
 
-Config = ConfigParser.ConfigParser()
+Config = configparser.ConfigParser()
 Config.read("keys.conf")
 
 # Configurar claves
